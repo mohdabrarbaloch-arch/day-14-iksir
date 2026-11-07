@@ -66,12 +66,12 @@ Every variable is documented in `.env.example`. The ones that matter:
 | `ENVIRONMENT` | `development` | `production` enables the strict checks |
 | `DATABASE_URL` | `sqlite:///./iksir.db` | Any SQLAlchemy URL |
 | `CORS_ORIGINS` | `http://localhost:8000` | Comma-separated allow-list |
-| `ACCESS_TOKEN_MINUTES` | `1440` | JWT lifetime |
+| `ACCESS_TOKEN_EXPIRE_MINUTES` | `1440` | JWT lifetime |
 | `BCRYPT_ROUNDS` | `12` | Drop to 4 in tests |
 | `RATE_LIMIT_REQUESTS` | `120` | Per minute, per IP |
 | `AUTH_RATE_LIMIT_REQUESTS` | `10` | Per minute, per IP, on `/api/auth/*` |
-| `MAX_SMILES_LENGTH` | `2000` | Rejects oversized input |
-| `MAX_LIBRARY_SIZE` | `200` | Caps a single screening request |
+| `MAX_SMILES_LENGTH` | `1000` | Rejects oversized input |
+| `MAX_COMPOUNDS_PER_SCREEN` | `200` | Caps a single screening request |
 
 ## Running the tests
 

@@ -53,10 +53,12 @@ is a relatively polar kinase inhibitor, and the model notices.
 ## Worked example: caffeine as a decoy
 
 Caffeine is drug-like by every Rule-of-Five measure — MW 194, cLogP −0.07, two
-H-bond donors, six acceptors, no violations and it is a weak, non-selective
-scorer here. That is the point of including it: a scorer that ranked caffeine
-alongside gefitinib would be measuring "is this a drug" rather than "does this
-fit this pocket."
+H-bond donors, six acceptors, no violations. It should not score well against a
+kinase pocket, and it does not: 35.9, a miss.
+
+That is the point of including it. A scorer that ranked caffeine alongside
+gefitinib would be measuring "is this a drug" rather than "does this fit this
+pocket."
 
 ## Using the descriptor calculator
 
