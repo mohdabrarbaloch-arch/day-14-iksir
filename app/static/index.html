@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iksir — compound screening workbench</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="#">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">Iksir</span>
+      <span class="brand-sub">compound screening</span>
+    </a>
+    <nav class="nav">
+      <button class="tab is-active" data-view="screen">Screen</button>
+      <button class="tab" data-view="descriptors">Descriptors</button>
+      <button class="tab" data-view="library">Library</button>
+      <button class="tab" data-view="runs">Runs</button>
+    </nav>
+    <div class="account">
+      <span id="who" class="who"></span>
+      <button id="authBtn" class="btn btn-ghost">Sign in</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ SCREEN ============ -->
+  <section class="view is-active" id="view-screen">
+    <div class="lede">
+      <h1>Score a library against a real binding pocket</h1>
+      <p class="subtle">
+        Every number on this page comes from atom-and-bond counts on your input,
+        using published fragment methods. This is ligand-based triage — it tells
+        you what deserves a docking run, not what will bind.
+      </p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <label class="field">
+          <span class="field-label">Target</span>
+          <select id="targetSelect"></select>
+        </label>
+        <div id="targetSummary" class="target-summary"></div>
+
+        <label class="field">
+          <span class="field-label">Compounds to screen</span>
+          <span class="field-hint">Pick from the reference library, or paste your own SMILES.</span>
+          <div id="libraryPick" class="chips"></div>
+        </label>
+
+        <label class="field">
+          <span class="field-label">Your own SMILES <span class="field-optional">optional</span></span>
+          <textarea id="smilesInput" rows="3" placeholder="CC(=O)Oc1ccccc1C(=O)O"></textarea>
+        </label>
+
+        <button id="screenBtn" class="btn btn-primary">Run screen</button>
+        <p id="screenError" class="error" role="alert" hidden></p>
+      </div>
+
+      <div class="card" id="resultsCard">
+        <div class="card-head">
+          <h2>Ranked results</h2>
+          <span id="hitBadge" class="badge" hidden></span>
+        </div>
+        <div id="results" class="results">
+          <p class="empty">No run yet. Pick a target and some compounds, then hit Run screen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DESCRIPTORS ============ -->
+  <section class="view" id="view-descriptors">
+    <div class="lede">
+      <h1>Descriptor calculator</h1>
+      <p class="subtle">Paste any SMILES. Molecular weight, TPSA, cLogP, rings, and the Rule of Five checks — all computed here, no black box.</p>
+    </div>
+    <div class="card">
+      <label class="field">
+        <span class="field-label">SMILES</span>
+        <textarea id="descInput" rows="3" placeholder="CN1C=NC2=C1C(=O)N(C)C(=O)N2C"></textarea>
+      </label>
+      <button id="descBtn" class="btn btn-primary">Compute</button>
+      <p id="descError" class="error" role="alert" hidden></p>
+    </div>
+    <div id="descOut" class="desc-out"></div>
+  </section>
+
+  <!-- ============ LIBRARY ============ -->
+  <section class="view" id="view-library">
+    <div class="lede">
+      <h1>Reference library</h1>
+      <p class="subtle">Twelve real drugs with SMILES transcribed from PubChem. Every descriptor is reproducible — the test suite checks all twelve against published values.</p>
+    </div>
+    <div id="libraryGrid" class="lib-grid"></div>
+  </section>
+
+  <!-- ============ RUNS ============ -->
+  <section class="view" id="view-runs">
+    <div class="lede">
+      <h1>Saved runs</h1>
+      <p class="subtle">Full ranked output is stored, so a run can be reopened and audited later.</p>
+    </div>
+    <div id="runsOut" class="card"><p class="empty">Sign in to keep a history of your screening runs.</p></div>
+  </section>
+
+</main>
+
+<!-- auth modal -->
+<div class="modal" id="authModal" hidden>
+  <div class="modal-panel">
+    <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+    <h2 id="authTitle">Sign in</h2>
+    <form id="authForm" class="stack">
+      <label class="field">
+        <span class="field-label">Email</span>
+        <input id="authEmail" type="email" required autocomplete="email">
+      </label>
+      <label class="field" id="nameField" hidden>
+        <span class="field-label">Display name</span>
+        <input id="authName" type="text" maxlength="120" autocomplete="name">
+      </label>
+      <label class="field">
+        <span class="field-label">Password</span>
+        <input id="authPassword" type="password" required minlength="8" autocomplete="current-password">
+        <span class="field-hint">At least 8 characters.</span>
+      </label>
+      <button type="submit" class="btn btn-primary" id="authSubmit">Sign in</button>
+      <p id="authError" class="error" role="alert" hidden></p>
+    </form>
+    <p class="switch-line">
+      <span id="switchText">No account yet?</span>
+      <button id="switchBtn" class="link">Create one</button>
+    </p>
+  </div>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
